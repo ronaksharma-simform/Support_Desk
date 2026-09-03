@@ -1,0 +1,29 @@
+{
+  "name": "supportdesk",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SupportDesk - role-based support ticket helpdesk (React + TypeScript + Tailwind frontend, Express + PostgreSQL backend)",
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c blue,green \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:server": "npm run dev --workspace server",
+    "dev:client": "npm run dev --workspace client",
+    "build": "npm run build --workspace client",
+    "typecheck": "npm run typecheck --workspace server && npm run typecheck --workspace client",
+    "test": "npm run test --workspace server",
+    "db:up": "docker compose up -d db",
+    "db:down": "docker compose down",
+    "db:setup": "npm run db:setup --workspace server",
+    "db:seed": "npm run db:seed --workspace server",
+    "db:reset": "docker compose down -v && docker compose up -d db && npm run db:seed"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
